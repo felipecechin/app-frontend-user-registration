@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import SigninForm from '@/components/system/signin/SigninForm'
 
 export default function Signin(): JSX.Element {
@@ -9,13 +10,18 @@ export default function Signin(): JSX.Element {
                         <div className='mx-auto'>
                             <div className='text-center mb-8'>
                                 <h2 className='flex flex-row justify-center text-cyan-800 font-bold text-4xl'>
-                                    Olá visitante!
+                                    Olá, visitante!
                                 </h2>
                             </div>
                             <SigninForm />
-                            <p className='mt-4 text-center text-sm text-gray-800 font-semibold'>
-                                Não tem uma conta? Cadastre-se aqui
-                            </p>
+                            <span className='flex justify-center'>
+                                <Link
+                                    className='inline-block mt-4 text-center text-sm text-gray-800 font-semibold'
+                                    href={'/user/signup'}
+                                >
+                                    Não tem uma conta? Cadastre-se aqui
+                                </Link>
+                            </span>
                         </div>
                     </div>
                 </div>
