@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import SigninForm from '@/components/system/signin/SigninForm'
+import SigninForm from '@/components/system/user/signin/SigninForm'
 
 export default function Signin(): JSX.Element {
     return (
