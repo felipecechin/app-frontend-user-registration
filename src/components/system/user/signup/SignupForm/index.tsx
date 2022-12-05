@@ -2,6 +2,7 @@ import * as yup from 'yup'
 
 import { useCallback, useMemo } from 'react'
 
+import ControlledReactSelect from '@/components/shared/form/ControlledReactSelect'
 import { FaSignInAlt } from 'react-icons/fa'
 import InputGroup from '@/components/shared/form/InputGroup'
 import InputMaskGroup from '@/components/shared/form/InputMaskGroup'
@@ -50,8 +51,8 @@ export default function SignupForm(): JSX.Element {
             className='flex flex-col space-y-6'
             onSubmit={handleSubmit(handleFormSubmit)}
         >
-            <div className='grid grid-cols-1 sm:grid-cols-12 space-y-6 divide-y-2 sm:space-y-0 sm:divide-y-0 sm:divide-x-2'>
-                <div className='sm:col-span-4'>
+            <div className='grid grid-cols-1 sm:grid-cols-12 space-y-6 divide-y-2 sm:space-y-0 sm:divide-y-0 sm:gap-y-4'>
+                <div className='sm:col-span-4 sm:border-r sm:border-gray-300'>
                     <p className='font-bold text-lg'>Dados pessoais</p>
                 </div>
                 <div className='pt-4 sm:pt-0 space-y-4 md:space-y-0 sm:col-span-8 grid grid-cols-1 md:grid-cols-2 sm:px-4 md:gap-4'>
@@ -81,6 +82,16 @@ export default function SignupForm(): JSX.Element {
                             register={register}
                             style='small'
                         />
+                    </div>
+                </div>
+                <div className='sm:col-span-4 sm:border-r sm:border-gray-300'>
+                    <p className='font-bold text-lg mt-4 sm:mt-0'>
+                        Dados pessoais
+                    </p>
+                </div>
+                <div className='pt-4 sm:pt-0 space-y-4 md:space-y-0 sm:col-span-8 grid grid-cols-1 md:grid-cols-2 sm:px-4 md:gap-4'>
+                    <div>
+                        <ControlledReactSelect />
                     </div>
                 </div>
             </div>
