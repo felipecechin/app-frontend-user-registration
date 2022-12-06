@@ -211,11 +211,11 @@ export default function SignupForm(): JSX.Element {
             className='flex flex-col space-y-6'
             onSubmit={handleSubmit(handleFormSubmit)}
         >
-            <div className='grid grid-cols-1 sm:grid-cols-12 space-y-6 divide-y-2 sm:space-y-0 sm:divide-y-0 sm:gap-y-4'>
+            <div className='grid grid-cols-1 sm:grid-cols-12 space-y-6 sm:space-y-0 sm:gap-y-4'>
                 <div className='sm:col-span-4 sm:border-r sm:border-gray-300'>
-                    <p className='font-bold text-lg'>Dados pessoais</p>
+                    <p className='font-bold text-lg text-cyan-800'>Dados pessoais</p>
                 </div>
-                <div className='pt-4 sm:pt-0 space-y-4 md:space-y-0 sm:col-span-8 grid grid-cols-1 md:grid-cols-2 sm:px-4 md:gap-4'>
+                <div className='pt-1 sm:pt-0 space-y-4 md:space-y-0 sm:col-span-8 grid grid-cols-1 md:grid-cols-2 sm:px-4 md:gap-4'>
                     <div>
                         <InputGroup
                             error={errors.name?.message as string}
@@ -244,10 +244,10 @@ export default function SignupForm(): JSX.Element {
                         />
                     </div>
                 </div>
-                <div className='sm:col-span-4 sm:border-r sm:border-gray-300'>
-                    <p className='font-bold text-lg mt-4 sm:mt-0'>Endereço</p>
+                <div className='sm:col-span-4 border-t sm:border-t-0 sm:border-r sm:border-gray-300'>
+                    <p className='font-bold text-lg mt-4 sm:mt-0 text-cyan-800'>Endereço</p>
                 </div>
-                <div className='pt-4 sm:pt-0 space-y-4 md:space-y-0 sm:col-span-8 grid grid-cols-1 md:grid-cols-2 sm:px-4 md:gap-4'>
+                <div className='pt-1 sm:pt-0 space-y-4 md:space-y-0 sm:col-span-8 grid grid-cols-1 md:grid-cols-2 sm:px-4 md:gap-4'>
                     <div>
                         <InputGroup
                             error={errors.address?.zip?.message as string}
@@ -298,10 +298,10 @@ export default function SignupForm(): JSX.Element {
                         />
                     </div>
                 </div>
-                <div className='sm:col-span-4 sm:border-r sm:border-gray-300'>
-                    <p className='font-bold text-lg mt-4 sm:mt-0'>Dados de acesso</p>
+                <div className='sm:col-span-4 border-t sm:border-t-0 sm:border-r sm:border-gray-300'>
+                    <p className='font-bold text-lg mt-4 sm:mt-0 text-cyan-800'>Dados de acesso</p>
                 </div>
-                <div className='pt-4 sm:pt-0 space-y-4 md:space-y-0 sm:col-span-8 grid grid-cols-1 md:grid-cols-2 sm:px-4 md:gap-4'>
+                <div className='pt-1 sm:pt-0 space-y-4 md:space-y-0 sm:col-span-8 grid grid-cols-1 md:grid-cols-2 sm:px-4 md:gap-4'>
                     <div>
                         <InputGroup
                             error={errors.email?.message as string}
