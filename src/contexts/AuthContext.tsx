@@ -87,7 +87,7 @@ export function AuthProvider({ children }: IAuthProviderProps): JSX.Element {
             nextApi: true,
         })
         setToken('')
-        router.push('/user/signin')
+        router.push('/users/signin')
     }
 
     return <AuthContext.Provider value={{ token, signin, signout }}>{children}</AuthContext.Provider>
