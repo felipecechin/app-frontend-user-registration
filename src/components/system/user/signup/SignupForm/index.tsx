@@ -15,6 +15,7 @@ import fetcher from '@/utils/fetcher'
 import getOnlyNumbers from '@/utils/getOnlyNumbers'
 import lodashFilter from 'lodash/filter'
 import lodashOmitBy from 'lodash/omitBy'
+import showFetchError from '@/utils/showFetchError'
 import states from '@/utils/states'
 import { useFormWithSchema } from '@/hooks/useFormWithSchema'
 import validateCpf from '@/utils/validateCpf'
@@ -197,12 +198,7 @@ export default function SignupForm(): JSX.Element {
             })
             Router.push('/users/signin')
         } catch (e) {
-            reactSwal.fire({
-                title: 'Oops!',
-                icon: 'error',
-                text: 'Ocorreu algum erro ao efetuar cadastro',
-                confirmButtonColor: sweetAlertOptions.confirmButtonColor,
-            })
+            showFetchError(e)
         }
     }, [])
 

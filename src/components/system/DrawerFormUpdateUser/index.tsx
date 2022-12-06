@@ -16,6 +16,7 @@ import fetcher from '@/utils/fetcher'
 import getOnlyNumbers from '@/utils/getOnlyNumbers'
 import lodashFilter from 'lodash/filter'
 import lodashOmitBy from 'lodash/omitBy'
+import showFetchError from '@/utils/showFetchError'
 import states from '@/utils/states'
 import { useAuth } from '@/contexts/AuthContext'
 import { useFormWithSchema } from '@/hooks/useFormWithSchema'
@@ -214,12 +215,7 @@ function DrawerFormUpdateUser({ open, onClose, profile }: IDrawerFormUpdateUserP
                 })
                 onClose()
             } catch (e) {
-                reactSwal.fire({
-                    title: 'Oops!',
-                    icon: 'error',
-                    text: 'Ocorreu algum erro ao efetuar cadastro',
-                    confirmButtonColor: sweetAlertOptions.confirmButtonColor,
-                })
+                showFetchError(e)
             }
         },
         [profile, onClose, token]
@@ -260,12 +256,7 @@ function DrawerFormUpdateUser({ open, onClose, profile }: IDrawerFormUpdateUserP
                         })
                         signout()
                     } catch (e) {
-                        reactSwal.fire({
-                            title: 'Oops!',
-                            icon: 'error',
-                            text: 'Ocorreu algum erro ao efetuar cadastro',
-                            confirmButtonColor: sweetAlertOptions.confirmButtonColor,
-                        })
+                        showFetchError(e)
                     }
                 }
             })
@@ -292,6 +283,15 @@ function DrawerFormUpdateUser({ open, onClose, profile }: IDrawerFormUpdateUserP
                         />
                     </div>
                     <div>
+                        <InputGroup
+                            error={errors.email?.message as string}
+                            label='E-mail'
+                            name='email'
+                            register={register}
+                            style='small'
+                        />
+                    </div>
+                    <div>
                         <InputMaskGroup
                             control={control}
                             error={errors.individualNumber?.message as string}
@@ -309,6 +309,7 @@ function DrawerFormUpdateUser({ open, onClose, profile }: IDrawerFormUpdateUserP
                             style='small'
                         />
                     </div>
+                    <h3 className='text-xl font-bold'>Endereço</h3>
                     <div>
                         <InputGroup
                             error={errors.address?.zip?.message as string}
