@@ -7,6 +7,7 @@ import ControlledReactSelect from '@/components/shared/form/ControlledReactSelec
 import { FaSignInAlt } from 'react-icons/fa'
 import InputGroup from '@/components/shared/form/InputGroup'
 import InputMaskGroup from '@/components/shared/form/InputMaskGroup'
+import Link from 'next/link'
 import Router from 'next/router'
 import { SubmitHandler } from 'react-hook-form'
 import cities from '@/utils/cities'
@@ -329,8 +330,14 @@ export default function SignupForm(): JSX.Element {
                     </div>
                 </div>
             </div>
-            <div className='flex justify-end sm:px-4'>
-                <button className='flex items-center justify-center max-w-sm py-2 px-4 text-center text-lg text-white font-extrabold bg-cyan-800 hover:bg-cyan-900 border-3 border-cyan-900 shadow rounded transition duration-200'>
+            <div className='flex flex-col-reverse sm:flex-row justify-between sm:pr-4'>
+                <Link
+                    className='inline-block mt-4 text-center text-sm text-cyan-800 font-semibold'
+                    href={'/users/signin'}
+                >
+                    Já possui conta? Faça login
+                </Link>
+                <button className='flex items-center justify-center w-full sm:w-auto sm:max-w-sm py-2 px-4 text-center text-lg text-white font-extrabold bg-cyan-800 hover:bg-cyan-900 border-3 border-cyan-900 shadow rounded transition duration-200'>
                     <FaSignInAlt className='w-4 h-4 mr-2' /> Enviar
                 </button>
             </div>
