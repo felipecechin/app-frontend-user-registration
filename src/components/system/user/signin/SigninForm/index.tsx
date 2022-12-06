@@ -14,10 +14,7 @@ export default function SigninForm(): JSX.Element {
 
     const loginSchema = useMemo(() => {
         return yup.object({
-            email: yup
-                .string()
-                .email(yupMessages.email)
-                .required(yupMessages.required),
+            email: yup.string().email(yupMessages.email).required(yupMessages.required),
             password: yup.string().required(yupMessages.required),
         })
     }, [])
@@ -28,11 +25,9 @@ export default function SigninForm(): JSX.Element {
         register,
     } = useFormWithSchema(loginSchema)
 
-    const handleFormSubmit = useCallback<
-        SubmitHandler<yup.Asserts<typeof loginSchema>>
-    >(
+    const handleFormSubmit = useCallback<SubmitHandler<yup.Asserts<typeof loginSchema>>>(
         async (data) => {
-            console.log(data)
+            signin(data.email, data.password)
         },
         [signin]
     )
