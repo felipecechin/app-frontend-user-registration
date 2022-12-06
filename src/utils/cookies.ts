@@ -3,7 +3,7 @@ import { NextApiRequestCookies } from 'next/dist/server/api-utils'
 import { NextApiResponse } from 'next'
 import { serialize } from 'cookie'
 
-const cookieName = '_app_name'
+const cookieName = '_app_user_registration'
 
 export const getToken = (
     req: IncomingMessage & {
