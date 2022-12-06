@@ -1,10 +1,4 @@
-import {
-    Control,
-    Controller,
-    FieldValues,
-    Path,
-    PathValue,
-} from 'react-hook-form'
+import { Control, Controller, FieldValues, Path, PathValue } from 'react-hook-form'
 
 import MessageError from '@/components/shared/MessageError'
 import React from 'react'
