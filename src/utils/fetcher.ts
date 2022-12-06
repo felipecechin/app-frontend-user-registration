@@ -31,13 +31,8 @@ const fetcher = async (args: IFetcherArgs): Promise<any> => {
     })
 
     const responseData = await response.json()
-
     if (!response.ok) {
-        throw new FetchError(
-            response.status,
-            response.statusText,
-            responseData ? responseData : null
-        )
+        throw new FetchError(response.status, response.statusText, responseData ? responseData : null)
     }
 
     return responseData
