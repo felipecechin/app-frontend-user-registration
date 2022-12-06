@@ -4,9 +4,9 @@ import { reactSwal, sweetAlertOptions } from './sweetAlert'
 import FetchError from './FetchError'
 
 const apiErrorMessages: Record<string, string> = {
-    'Email already in use': 'E-mail já está sendo usado. Por favor, informe outro.',
-    'Individual number already in use': 'CPF já está sendo usado. Por favor, informe outro.',
-    'Worker number already in use': 'PIS já está sendo usado. Por favor, informe outro.',
+    'Email already in use': 'E-mail informado já está sendo usado. Por favor, informe outro.',
+    'Individual number already in use': 'CPF informado já está sendo usado. Por favor, informe outro.',
+    'Worker number already in use': 'PIS informado já está sendo usado. Por favor, informe outro.',
 }
 
 function showFetchError(error: any): void {
