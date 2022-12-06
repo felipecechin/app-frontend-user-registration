@@ -57,6 +57,7 @@ export default function ControlledReactSelect<
                 borderColor: state.isFocused ? brandColor : base.borderColor,
                 '&:hover': {
                     borderColor: state.isFocused ? brandColor : base.borderColor,
+                    cursor: 'pointer',
                 },
             }),
         } as unknown as StylesConfig<Option, IsMulti, Group>
@@ -67,8 +68,7 @@ export default function ControlledReactSelect<
             <label className={'block mb-1 font-medium'}>{label}</label>
             <Select
                 classNames={{
-                    control: () =>
-                        'w-full placeholder-cyan-700 bg-white shadow border-2 border-cyan-700 rounded focus:outline-none focus:ring focus:ring-cyan-300 p-1',
+                    control: () => 'p-1',
                 }}
                 instanceId={'react-select' + name}
                 isOptionSelected={(option) => {
