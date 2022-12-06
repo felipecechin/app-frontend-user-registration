@@ -16,7 +16,7 @@ export default function Signin(): JSX.Element {
                             <SigninForm />
                             <span className='flex justify-center'>
                                 <Link
-                                    className='inline-block mt-4 text-center text-sm text-gray-800 font-semibold'
+                                    className='inline-block mt-4 text-center text-sm text-cyan-800 font-semibold'
                                     href={'/users/signup'}
                                 >
                                     Não tem uma conta? Cadastre-se aqui
