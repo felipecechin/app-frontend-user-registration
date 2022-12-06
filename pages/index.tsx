@@ -1,15 +1,35 @@
 import DrawerFormUpdateUser from '@/components/system/DrawerFormUpdateUser'
 import Header from '@/components/shared/template/Header'
+import { IUserProfile } from '@/types/userProfile'
+import { InferGetServerSidePropsType } from 'next'
 import MainContent from '@/components/shared/template/MainContent'
+import fetcher from '@/utils/fetcher'
 import { useState } from 'react'
+import { withSSRAuth } from '@/utils/withSSRAuth'
 
-// export const getServerSideProps = withSSRAuth(async ({ token }) => {
-//     return {
-//         props: {},
-//     }
-// })
+interface IResponseProfile {
+    profile: IUserProfile
+}
 
-export default function Home(): JSX.Element {
+interface IHomeProps {
+    profile: IUserProfile
+}
+
+export const getServerSideProps = withSSRAuth<IHomeProps>(async ({ token }) => {
+    const response = (await fetcher({
+        url: '/user',
+        method: 'GET',
+        auth: token,
+    })) as IResponseProfile
+
+    return {
+        props: {
+            profile: response.profile,
+        },
+    }
+})
+
+export default function Home({ profile }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
     const [showDrawerFormUpdateUser, setShowDrawerFormUpdateUser] = useState(false)
 
     return (
@@ -25,6 +45,7 @@ export default function Home(): JSX.Element {
             <DrawerFormUpdateUser
                 onClose={() => setShowDrawerFormUpdateUser(false)}
                 open={showDrawerFormUpdateUser}
+                profile={profile}
             />
         </>
     )
