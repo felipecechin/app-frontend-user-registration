@@ -331,12 +331,14 @@ export default function SignupForm(): JSX.Element {
                 </div>
             </div>
             <div className='flex flex-col-reverse sm:flex-row justify-between sm:pr-4'>
-                <Link
-                    className='inline-block mt-4 text-center text-sm text-cyan-800 font-semibold'
-                    href={'/users/signin'}
-                >
-                    Já possui conta? Faça login
-                </Link>
+                <span className='flex justify-center'>
+                    <Link
+                        className='inline-block mt-4 text-center text-sm text-cyan-800 font-semibold'
+                        href={'/users/signin'}
+                    >
+                        Já possui conta? Faça login
+                    </Link>
+                </span>
                 <button className='flex items-center justify-center w-full sm:w-auto sm:max-w-sm py-2 px-4 text-center text-lg text-white font-extrabold bg-cyan-800 hover:bg-cyan-900 border-3 border-cyan-900 shadow rounded transition duration-200'>
                     <FaSignInAlt className='w-4 h-4 mr-2' /> Enviar
                 </button>
