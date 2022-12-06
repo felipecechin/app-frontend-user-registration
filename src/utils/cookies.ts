@@ -40,7 +40,6 @@ export const storeToken = (res: NextApiResponse, token: string): void => {
         maxAge: 60 * 60 * 4,
         path: '/',
         sameSite: 'lax',
-        // secure: true
     })
 
     res.setHeader('Set-Cookie', cookie)
