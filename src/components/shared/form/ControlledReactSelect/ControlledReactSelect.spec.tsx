@@ -18,14 +18,6 @@ const optionsMock = [
 
 describe('ControlledReactSelect component', () => {
     it('should render label and input correctly', async () => {
-        const onChangeMocked = jest.fn()
-        jest.spyOn(ReactHookForm, 'useController').mockReturnValueOnce({
-            field: {
-                onChange: onChangeMocked,
-                value: '',
-            },
-        } as any)
-
         const { result } = renderHook(() => ReactHookForm.useForm())
 
         const { container } = render(
@@ -76,14 +68,6 @@ describe('ControlledReactSelect component', () => {
     })
 
     it('should not render tag when error is empty', async () => {
-        const onChangeMocked = jest.fn()
-        jest.spyOn(ReactHookForm, 'useController').mockReturnValueOnce({
-            field: {
-                onChange: onChangeMocked,
-                value: 'option1',
-            },
-        } as any)
-
         const { result } = renderHook(() => ReactHookForm.useForm())
 
         const { container } = render(
@@ -102,14 +86,6 @@ describe('ControlledReactSelect component', () => {
     })
 
     it('should render tag when error is not empty', async () => {
-        const onChangeMocked = jest.fn()
-        jest.spyOn(ReactHookForm, 'useController').mockReturnValueOnce({
-            field: {
-                onChange: onChangeMocked,
-                value: 'option1',
-            },
-        } as any)
-
         const { result } = renderHook(() => ReactHookForm.useForm())
 
         const { container } = render(
