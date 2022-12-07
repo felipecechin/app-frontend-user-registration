@@ -52,6 +52,7 @@ function Drawer({ open, onClose, title, children }: IDrawerProps): JSX.Element {
                                             </Dialog.Title>
                                             <button
                                                 className='rounded-md text-gray-300 hover:text-cyan-700 focus:outline-none focus:ring-2 focus:ring-white'
+                                                data-testid='close-drawer'
                                                 onClick={onClose}
                                                 type='button'
                                             >
