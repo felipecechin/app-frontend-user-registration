@@ -202,7 +202,6 @@ function DrawerFormUpdateUser({ open, onClose, profile }: IDrawerFormUpdateUserP
                     method: 'PUT',
                     data: {
                         ...sendData,
-                        id: profile.id,
                     },
                     auth: token,
                 })
@@ -218,7 +217,7 @@ function DrawerFormUpdateUser({ open, onClose, profile }: IDrawerFormUpdateUserP
                 showFetchError(e)
             }
         },
-        [profile, onClose, token]
+        [onClose, token]
     )
 
     const handleDeleteUser = useCallback(async () => {
