@@ -25,6 +25,10 @@ jest.mock('@/utils/fetcher')
 jest.mock('@/utils/cookies')
 
 describe('Home page', () => {
+    afterEach(() => {
+        jest.clearAllMocks()
+    })
+
     it('should render correctly', () => {
         render(<Home profile={profileMock} />)
 
