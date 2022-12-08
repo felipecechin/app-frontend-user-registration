@@ -29,3 +29,5 @@ Object.defineProperty(global, 'IntersectionObserver', {
     configurable: true,
     value: IntersectionObserver,
 })
+
+window.scrollTo = jest.fn()

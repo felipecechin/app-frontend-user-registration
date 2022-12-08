@@ -196,4 +196,40 @@ describe('DrawerFormUpdateUser component', () => {
         expect(document.querySelector('input[name="react-select-address.state"]')).not.toBeInTheDocument()
         expect(document.querySelector('input[name="react-select-address.city"]')).not.toBeInTheDocument()
     })
+
+    it('should call fetcher and signout when the user confirms data deletion', async () => {
+        const fetcherMock = jest.mocked(fetcher)
+        const useAuthMocked = jest.mocked(useAuth)
+        const signoutMocked = jest.fn()
+
+        useAuthMocked.mockReturnValue({
+            token: 'token-123',
+            signout: signoutMocked,
+        } as any)
+
+        const onCloseMock = jest.fn()
+        render(
+            <DrawerFormUpdateUser
+                onClose={onCloseMock}
+                open={true}
+                profile={profileMock}
+            />
+        )
+
+        const deleteButton = screen.getByText('Remover dados')
+        fireEvent.click(deleteButton)
+
+        await waitFor(() => screen.getByText('Sim, remover!'))
+        fireEvent.click(screen.getByText('Sim, remover!'))
+
+        await waitFor(() => {
+            expect(fetcherMock).toHaveBeenCalledTimes(1)
+            expect(fetcherMock).toHaveBeenCalledWith({
+                url: '/user',
+                method: 'DELETE',
+                auth: 'token-123',
+            })
+            expect(signoutMocked).toHaveBeenCalled()
+        })
+    })
 })
