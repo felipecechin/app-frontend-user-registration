@@ -69,6 +69,7 @@ describe('SigninForm component', () => {
 
         await waitFor(() => {
             expect(signinMock).toHaveBeenCalledTimes(1)
+            expect(signinMock).toHaveBeenCalledWith('ficechin@hotmail.com', '123')
         })
     })
 })
