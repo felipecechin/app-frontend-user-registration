@@ -31,7 +31,7 @@ interface IDrawerFormUpdateUserProps {
 
 function DrawerFormUpdateUser({ open, onClose, profile }: IDrawerFormUpdateUserProps): JSX.Element {
     const { token, signout } = useAuth()
-    const [showStateAndCityFieldsByCountry, setShowStateAndCityFieldsByCountry] = useState('BRA')
+    const [showStateAndCityFieldsByCountry, setShowStateAndCityFieldsByCountry] = useState('')
     const [citiesByState, setCitiesByState] = useState<
         {
             label: string
@@ -318,7 +318,7 @@ function DrawerFormUpdateUser({ open, onClose, profile }: IDrawerFormUpdateUserP
                             style='small'
                         />
                     </div>
-                    <div>
+                    <div data-testid='div-select-country'>
                         <ControlledReactSelect
                             control={control}
                             error={errors.address?.country?.message as string}

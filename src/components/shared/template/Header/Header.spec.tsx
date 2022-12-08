@@ -7,6 +7,10 @@ import { useAuth } from '@/contexts/AuthContext'
 jest.mock('@/contexts/AuthContext')
 
 describe('Header component', () => {
+    afterEach(() => {
+        jest.clearAllMocks()
+    })
+
     it('should render correctly', () => {
         const useAuthMocked = jest.mocked(useAuth)
 

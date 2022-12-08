@@ -49,6 +49,7 @@ function InputMaskGroup<T extends FieldValues>({
                         }
                         mask={mask}
                         maskPlaceholder={null}
+                        name={name}
                         onBlur={onBlur}
                         onChange={onChange}
                         type={'text'}

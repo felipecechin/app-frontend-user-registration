@@ -3,6 +3,10 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import Drawer from '.'
 
 describe('Drawer component', () => {
+    afterEach(() => {
+        jest.clearAllMocks()
+    })
+
     it('should render correctly', () => {
         const onCloseMock = jest.fn()
         render(

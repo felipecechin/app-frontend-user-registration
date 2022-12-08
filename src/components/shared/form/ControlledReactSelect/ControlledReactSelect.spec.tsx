@@ -17,6 +17,10 @@ const optionsMock = [
 ]
 
 describe('ControlledReactSelect component', () => {
+    afterEach(() => {
+        jest.clearAllMocks()
+    })
+
     it('should render label and input correctly', async () => {
         const { result } = renderHook(() => ReactHookForm.useForm())
 
