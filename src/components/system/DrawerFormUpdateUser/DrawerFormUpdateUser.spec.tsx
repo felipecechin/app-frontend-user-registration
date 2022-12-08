@@ -21,6 +21,21 @@ const profileMock = {
     },
 }
 
+const updateProfileDataMock = {
+    email: 'felipecechinm@hotmail.com',
+    name: 'Felipe',
+    individualNumber: '91786000067',
+    workerNumber: '9889432',
+    address: {
+        street: 'Avenida Dores',
+        number: 4,
+        city: 'Camboja City',
+        state: 'Camboja State',
+        country: 'KHM',
+        zip: '498498489',
+    },
+}
+
 jest.mock('@/utils/fetcher')
 jest.mock('@/contexts/AuthContext')
 
@@ -89,7 +104,7 @@ describe('DrawerFormUpdateUser component', () => {
         })
     })
 
-    it('should show errors when the form is submitted with invalid values', async () => {
+    it('should call fetcher function correctly when the user submit form', async () => {
         const fetcherMock = jest.mocked(fetcher)
         const useAuthMocked = jest.mocked(useAuth)
         const signoutMocked = jest.fn()
@@ -100,7 +115,7 @@ describe('DrawerFormUpdateUser component', () => {
         } as any)
 
         const onCloseMock = jest.fn()
-        render(
+        const { queryByTestId } = render(
             <DrawerFormUpdateUser
                 onClose={onCloseMock}
                 open={true}
@@ -111,10 +126,27 @@ describe('DrawerFormUpdateUser component', () => {
         const workerNumberInput = document.querySelector('input[name="workerNumber"]') as HTMLInputElement
         const individualNumberInput = document.querySelector('input[name="individualNumber"]') as HTMLInputElement
         const nameInput = document.querySelector('input[name="name"]') as HTMLInputElement
+        const emailInput = document.querySelector('input[name="email"]') as HTMLInputElement
+        const addressZipInput = document.querySelector('input[name="address.zip"]') as HTMLInputElement
+        const addressStreetInput = document.querySelector('input[name="address.street"]') as HTMLInputElement
+        const addressNumberInput = document.querySelector('input[name="address.number"]') as HTMLInputElement
+
+        const selectCountryDiv = queryByTestId('div-select-country') as HTMLDivElement
+        expect(selectCountryDiv).toBeDefined()
+        expect(selectCountryDiv).not.toBeNull()
+
+        fireEvent.keyDown(selectCountryDiv.lastChild as ChildNode, { key: 'ArrowDown' })
+
+        await waitFor(() => screen.getByText('Camboja'))
+        fireEvent.click(screen.getByText('Camboja'))
 
         fireEvent.change(workerNumberInput, { target: { value: '' } })
         fireEvent.change(individualNumberInput, { target: { value: '' } })
         fireEvent.change(nameInput, { target: { value: '' } })
+        fireEvent.change(emailInput, { target: { value: '' } })
+        fireEvent.change(addressZipInput, { target: { value: '' } })
+        fireEvent.change(addressStreetInput, { target: { value: '' } })
+        fireEvent.change(addressNumberInput, { target: { value: '' } })
         const button = screen.getByText('Salvar')
 
         await act(() => {
@@ -122,13 +154,12 @@ describe('DrawerFormUpdateUser component', () => {
         })
 
         await waitFor(() => {
-            expect(screen.getAllByText(yupMessages.required)).toHaveLength(3)
+            expect(screen.getAllByText(yupMessages.required)).toHaveLength(8)
+            expect(screen.getAllByText(yupMessages.typeNumber)).toHaveLength(1)
             expect(fetcherMock).toHaveBeenCalledTimes(0)
         })
 
-        fireEvent.change(workerNumberInput, { target: { value: '1651156' } })
         fireEvent.change(individualNumberInput, { target: { value: '98484' } })
-        fireEvent.change(nameInput, { target: { value: 'Felipe Cechin' } })
 
         await act(() => {
             button.dispatchEvent(new MouseEvent('click', { bubbles: true }))
@@ -139,7 +170,40 @@ describe('DrawerFormUpdateUser component', () => {
             expect(fetcherMock).toHaveBeenCalledTimes(0)
         })
 
-        fireEvent.change(individualNumberInput, { target: { value: '85394154023' } })
+        fireEvent.change(emailInput, { target: { value: 'email-invalid' } })
+
+        await act(() => {
+            button.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+        })
+
+        await waitFor(() => {
+            expect(screen.getByText(yupMessages.email)).toBeInTheDocument()
+            expect(fetcherMock).toHaveBeenCalledTimes(0)
+        })
+
+        fireEvent.change(workerNumberInput, { target: { value: 'worker-number' } })
+        fireEvent.change(addressZipInput, { target: { value: 'address-zip' } })
+        await act(() => {
+            button.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+        })
+
+        await waitFor(() => {
+            expect(screen.getAllByText('Informe apenas números')).toHaveLength(2)
+            expect(fetcherMock).toHaveBeenCalledTimes(0)
+        })
+
+        const addressCityInput = document.querySelector('input[name="address.city"]') as HTMLInputElement
+        const addressStateInput = document.querySelector('input[name="address.state"]') as HTMLInputElement
+
+        fireEvent.change(workerNumberInput, { target: { value: updateProfileDataMock.workerNumber } })
+        fireEvent.change(individualNumberInput, { target: { value: updateProfileDataMock.individualNumber } })
+        fireEvent.change(nameInput, { target: { value: updateProfileDataMock.name } })
+        fireEvent.change(emailInput, { target: { value: updateProfileDataMock.email } })
+        fireEvent.change(addressZipInput, { target: { value: updateProfileDataMock.address.zip } })
+        fireEvent.change(addressStreetInput, { target: { value: updateProfileDataMock.address.street } })
+        fireEvent.change(addressNumberInput, { target: { value: updateProfileDataMock.address.number } })
+        fireEvent.change(addressCityInput, { target: { value: updateProfileDataMock.address.city } })
+        fireEvent.change(addressStateInput, { target: { value: updateProfileDataMock.address.state } })
 
         await act(() => {
             button.dispatchEvent(new MouseEvent('click', { bubbles: true }))
@@ -151,17 +215,14 @@ describe('DrawerFormUpdateUser component', () => {
                 url: '/user',
                 method: 'PUT',
                 data: {
-                    ...profileMock,
-                    individualNumber: '85394154023',
-                    workerNumber: '1651156',
-                    name: 'Felipe Cechin',
+                    ...updateProfileDataMock,
                 },
                 auth: 'token-123',
             })
         })
     })
 
-    it('should show input type text for state and city when country is different from Brazil', async () => {
+    it('should show input for state and city by country value', async () => {
         const useAuthMocked = jest.mocked(useAuth)
         const signoutMocked = jest.fn()
 
@@ -195,6 +256,16 @@ describe('DrawerFormUpdateUser component', () => {
         expect(cityInput).toBeInTheDocument()
         expect(document.querySelector('input[name="react-select-address.state"]')).not.toBeInTheDocument()
         expect(document.querySelector('input[name="react-select-address.city"]')).not.toBeInTheDocument()
+
+        fireEvent.keyDown(selectCountryDiv.lastChild as ChildNode, { key: 'ArrowDown' })
+
+        await waitFor(() => screen.getByText('Brasil'))
+        fireEvent.click(screen.getByText('Brasil'))
+
+        expect(stateInput).not.toBeInTheDocument()
+        expect(cityInput).not.toBeInTheDocument()
+        expect(document.querySelector('input[name="react-select-address.state"]')).toBeInTheDocument()
+        expect(document.querySelector('input[name="react-select-address.city"]')).toBeInTheDocument()
     })
 
     it('should call fetcher and signout when the user confirms data deletion', async () => {

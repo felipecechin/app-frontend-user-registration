@@ -8,7 +8,6 @@ import { FaSignInAlt } from 'react-icons/fa'
 import InputGroup from '@/components/shared/form/InputGroup'
 import InputMaskGroup from '@/components/shared/form/InputMaskGroup'
 import Link from 'next/link'
-import Router from 'next/router'
 import { SubmitHandler } from 'react-hook-form'
 import cities from '@/utils/cities'
 import countries from '@/utils/countries'
@@ -19,10 +18,12 @@ import lodashOmitBy from 'lodash/omitBy'
 import showFetchError from '@/utils/showFetchError'
 import states from '@/utils/states'
 import { useFormWithSchema } from '@/hooks/useFormWithSchema'
+import { useRouter } from 'next/router'
 import validateCpf from '@/utils/validateCpf'
 import { yupMessages } from '@/utils/yupMessages'
 
 export default function SignupForm(): JSX.Element {
+    const router = useRouter()
     const [showStateAndCityFieldsByCountry, setShowStateAndCityFieldsByCountry] = useState('BRA')
     const [citiesByState, setCitiesByState] = useState<
         {
@@ -171,37 +172,39 @@ export default function SignupForm(): JSX.Element {
         }
     }, [showStateAndCityFieldsByCountry, citiesByState, control, errors, onChangeState, register])
 
-    const handleFormSubmit = useCallback<SubmitHandler<yup.Asserts<typeof registerSchema>>>(async (data) => {
-        console.log(data)
-        const address = lodashOmitBy(data.address, (v) => v === '' || v === null)
-        reactSwal.fire({
-            title: 'Por favor, aguarde...',
-            allowEscapeKey: false,
-            allowOutsideClick: false,
-        })
-        reactSwal.showLoading(null)
-        const sendData = {
-            ...data,
-            address,
-        }
-        try {
-            await fetcher({
-                url: '/user',
-                method: 'POST',
-                data: sendData,
-            })
-
+    const handleFormSubmit = useCallback<SubmitHandler<yup.Asserts<typeof registerSchema>>>(
+        async (data) => {
+            const address = lodashOmitBy(data.address, (v) => v === '' || v === null)
             reactSwal.fire({
-                title: 'Sucesso!',
-                icon: 'success',
-                text: 'Cadastro efetuado com sucesso. Entre em sua conta.',
-                confirmButtonColor: sweetAlertOptions.confirmButtonColor,
+                title: 'Por favor, aguarde...',
+                allowEscapeKey: false,
+                allowOutsideClick: false,
             })
-            Router.push('/users/signin')
-        } catch (e) {
-            showFetchError(e)
-        }
-    }, [])
+            reactSwal.showLoading(null)
+            const sendData = {
+                ...data,
+                address,
+            }
+            try {
+                await fetcher({
+                    url: '/user',
+                    method: 'POST',
+                    data: sendData,
+                })
+
+                reactSwal.fire({
+                    title: 'Sucesso!',
+                    icon: 'success',
+                    text: 'Cadastro efetuado com sucesso. Entre em sua conta.',
+                    confirmButtonColor: sweetAlertOptions.confirmButtonColor,
+                })
+                router.push('/users/signin')
+            } catch (e) {
+                showFetchError(e)
+            }
+        },
+        [router]
+    )
 
     return (
         <form
@@ -254,7 +257,7 @@ export default function SignupForm(): JSX.Element {
                             style='small'
                         />
                     </div>
-                    <div>
+                    <div data-testid='div-select-country'>
                         <ControlledReactSelect
                             control={control}
                             error={errors.address?.country?.message as string}
