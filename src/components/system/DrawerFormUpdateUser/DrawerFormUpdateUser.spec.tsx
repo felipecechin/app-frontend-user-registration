@@ -131,11 +131,11 @@ describe('DrawerFormUpdateUser component', () => {
         const addressStreetInput = document.querySelector('input[name="address.street"]') as HTMLInputElement
         const addressNumberInput = document.querySelector('input[name="address.number"]') as HTMLInputElement
 
-        const selectCountryDiv = queryByTestId('div-select-country') as HTMLDivElement
-        expect(selectCountryDiv).toBeDefined()
-        expect(selectCountryDiv).not.toBeNull()
+        const divSelectCountry = queryByTestId('div-select-country') as HTMLDivElement
+        expect(divSelectCountry).toBeDefined()
+        expect(divSelectCountry).not.toBeNull()
 
-        fireEvent.keyDown(selectCountryDiv.lastChild as ChildNode, { key: 'ArrowDown' })
+        fireEvent.keyDown(divSelectCountry.lastChild as ChildNode, { key: 'ArrowDown' })
 
         await waitFor(() => screen.getByText('Camboja'))
         fireEvent.click(screen.getByText('Camboja'))
@@ -240,11 +240,11 @@ describe('DrawerFormUpdateUser component', () => {
             />
         )
 
-        const selectCountryDiv = queryByTestId('div-select-country') as HTMLDivElement
-        expect(selectCountryDiv).toBeDefined()
-        expect(selectCountryDiv).not.toBeNull()
+        const divSelectCountry = queryByTestId('div-select-country') as HTMLDivElement
+        expect(divSelectCountry).toBeDefined()
+        expect(divSelectCountry).not.toBeNull()
 
-        fireEvent.keyDown(selectCountryDiv.lastChild as ChildNode, { key: 'ArrowDown' })
+        fireEvent.keyDown(divSelectCountry.lastChild as ChildNode, { key: 'ArrowDown' })
 
         await waitFor(() => screen.getByText('Tonga'))
         fireEvent.click(screen.getByText('Tonga'))
@@ -257,7 +257,7 @@ describe('DrawerFormUpdateUser component', () => {
         expect(document.querySelector('input[name="react-select-address.state"]')).not.toBeInTheDocument()
         expect(document.querySelector('input[name="react-select-address.city"]')).not.toBeInTheDocument()
 
-        fireEvent.keyDown(selectCountryDiv.lastChild as ChildNode, { key: 'ArrowDown' })
+        fireEvent.keyDown(divSelectCountry.lastChild as ChildNode, { key: 'ArrowDown' })
 
         await waitFor(() => screen.getByText('Brasil'))
         fireEvent.click(screen.getByText('Brasil'))
