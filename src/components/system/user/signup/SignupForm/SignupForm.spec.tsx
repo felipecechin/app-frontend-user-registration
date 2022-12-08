@@ -37,6 +37,9 @@ describe('SignupForm component', () => {
         expect(screen.getByText('Dados de acesso')).toBeInTheDocument()
         expect(document.querySelector('input[name="react-select-address.state"]')).toBeInTheDocument()
         expect(document.querySelector('input[name="react-select-address.city"]')).toBeInTheDocument()
+
+        const tagLinkToSignin = screen.getByText('Já possui conta? Faça login')
+        expect(tagLinkToSignin).toHaveAttribute('href', '/users/signin')
     })
 
     it('should call fetcher function and redirect correctly when user submit the form with valid values', async () => {
