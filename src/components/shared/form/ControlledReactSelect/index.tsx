@@ -75,6 +75,7 @@ export default function ControlledReactSelect<
                     const optionItem = option as unknown as { value: string }
                     return optionItem.value === value
                 }}
+                name={'react-select-' + name}
                 noOptionsMessage={() => 'Nenhuma opção encontrada'}
                 onChange={(option: OnChangeValue<Option, IsMulti>) => {
                     const optionItem = option as unknown as { value: string }

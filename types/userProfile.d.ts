@@ -1,5 +1,4 @@
 export interface IUserProfile {
-    id: string
     name: string
     email: string
     individualNumber: string
@@ -11,6 +10,6 @@ export interface IUserProfile {
         zip: string
         street: string
         number: number
-        complement: string | null
+        complement?: string | null
     }
 }

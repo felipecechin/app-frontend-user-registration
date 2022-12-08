@@ -2,7 +2,6 @@ import { Control, Controller, FieldValues, Path, PathValue } from 'react-hook-fo
 
 import MessageError from '@/components/shared/MessageError'
 import React from 'react'
-import { Props as ReactInputMaskProps } from 'react-input-mask'
 import dynamic from 'next/dynamic'
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -30,7 +29,7 @@ function InputMaskGroup<T extends FieldValues>({
     label,
     error,
     mask,
-}: IInputMaskGroupProps<T> & ReactInputMaskProps): JSX.Element {
+}: IInputMaskGroupProps<T>): JSX.Element {
     return (
         <>
             <label
@@ -50,6 +49,7 @@ function InputMaskGroup<T extends FieldValues>({
                         }
                         mask={mask}
                         maskPlaceholder={null}
+                        name={name}
                         onBlur={onBlur}
                         onChange={onChange}
                         type={'text'}
