@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { reactSwal, sweetAlertOptions } from '@/utils/sweetAlert'
 
-import FetchError from '@/utils/FetchError'
 import fetcher from '@/utils/fetcher'
 import { useRouter } from 'next/router'
 
@@ -68,9 +67,6 @@ export function AuthProvider({ children }: IAuthProviderProps): JSX.Element {
             reactSwal.close()
             router.push('/')
         } catch (e) {
-            if (e instanceof FetchError) {
-                console.log(e.data)
-            }
             reactSwal.fire({
                 title: 'Oops!',
                 icon: 'error',
