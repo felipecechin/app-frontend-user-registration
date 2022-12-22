@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-import { reactSwal, sweetAlertOptions } from '@/utils/sweetAlert'
+import { showSwalLoading, showSwalSuccess } from '@/utils/reactSwal'
 import { useCallback, useMemo, useState } from 'react'
 
 import ControlledReactSelect from '@/components/shared/form/ControlledReactSelect'
@@ -175,12 +175,7 @@ export default function SignupForm(): JSX.Element {
     const handleFormSubmit = useCallback<SubmitHandler<yup.Asserts<typeof registerSchema>>>(
         async (data) => {
             const address = lodashOmitBy(data.address, (v) => v === '' || v === null)
-            reactSwal.fire({
-                title: 'Por favor, aguarde...',
-                allowEscapeKey: false,
-                allowOutsideClick: false,
-            })
-            reactSwal.showLoading(null)
+            showSwalLoading()
             const sendData = {
                 ...data,
                 address,
@@ -192,12 +187,7 @@ export default function SignupForm(): JSX.Element {
                     data: sendData,
                 })
 
-                reactSwal.fire({
-                    title: 'Sucesso!',
-                    icon: 'success',
-                    text: 'Cadastro efetuado com sucesso. Entre em sua conta.',
-                    confirmButtonColor: sweetAlertOptions.confirmButtonColor,
-                })
+                showSwalSuccess('Cadastro efetuado com sucesso. Entre em sua conta.')
                 router.push('/users/signin')
             } catch (e) {
                 showFetchError(e)

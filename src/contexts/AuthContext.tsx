@@ -1,5 +1,5 @@
+import { closeSwal, showSwalError, showSwalLoading } from '@/utils/reactSwal'
 import { createContext, useContext, useEffect, useState } from 'react'
-import { reactSwal, sweetAlertOptions } from '@/utils/sweetAlert'
 
 import fetcher from '@/utils/fetcher'
 import { useRouter } from 'next/router'
@@ -49,12 +49,7 @@ export function AuthProvider({ children }: IAuthProviderProps): JSX.Element {
     }, [])
 
     const signin = async (email: string, password: string): Promise<void> => {
-        reactSwal.fire({
-            title: 'Por favor, aguarde...',
-            allowEscapeKey: false,
-            allowOutsideClick: false,
-        })
-        reactSwal.showLoading(null)
+        showSwalLoading('Por favor, aguarde...')
         try {
             const response = (await fetcher({
                 url: '/api/signin',
@@ -64,15 +59,10 @@ export function AuthProvider({ children }: IAuthProviderProps): JSX.Element {
             })) as ISigninResponse
 
             setToken(response.data)
-            reactSwal.close()
+            closeSwal()
             router.push('/')
         } catch (e) {
-            reactSwal.fire({
-                title: 'Oops!',
-                icon: 'error',
-                text: 'E-mail e/ou senha inválidos',
-                confirmButtonColor: sweetAlertOptions.confirmButtonColor,
-            })
+            showSwalError('E-mail e/ou senha inválidos')
         }
     }
 

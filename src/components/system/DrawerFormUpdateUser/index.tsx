@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 
 import { FaSave, FaTrash } from 'react-icons/fa'
-import { reactSwal, sweetAlertOptions } from '@/utils/sweetAlert'
+import reactSwal, { showSwalLoading, showSwalSuccess, sweetAlertOptions } from '@/utils/reactSwal'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import ControlledReactSelect from '@/components/shared/form/ControlledReactSelect'
@@ -186,12 +186,7 @@ function DrawerFormUpdateUser({ open, onClose, profile }: IDrawerFormUpdateUserP
     const handleFormSubmit = useCallback<SubmitHandler<yup.Asserts<typeof updateSchema>>>(
         async (data) => {
             const address = lodashOmitBy(data.address, (v) => v === '' || v === null)
-            reactSwal.fire({
-                title: 'Por favor, aguarde...',
-                allowEscapeKey: false,
-                allowOutsideClick: false,
-            })
-            reactSwal.showLoading(null)
+            showSwalLoading()
             const sendData = {
                 ...data,
                 address,
@@ -206,12 +201,7 @@ function DrawerFormUpdateUser({ open, onClose, profile }: IDrawerFormUpdateUserP
                     auth: token,
                 })
 
-                reactSwal.fire({
-                    title: 'Sucesso!',
-                    icon: 'success',
-                    text: 'Dados atualizados com sucesso',
-                    confirmButtonColor: sweetAlertOptions.confirmButtonColor,
-                })
+                showSwalSuccess('Dados atualizados com sucesso')
                 onClose()
             } catch (e) {
                 showFetchError(e)
@@ -234,12 +224,7 @@ function DrawerFormUpdateUser({ open, onClose, profile }: IDrawerFormUpdateUserP
             })
             .then(async (result) => {
                 if (result.isConfirmed) {
-                    reactSwal.fire({
-                        title: 'Por favor, aguarde...',
-                        allowEscapeKey: false,
-                        allowOutsideClick: false,
-                    })
-                    reactSwal.showLoading(null)
+                    showSwalLoading()
                     try {
                         await fetcher({
                             url: '/user',
@@ -247,12 +232,7 @@ function DrawerFormUpdateUser({ open, onClose, profile }: IDrawerFormUpdateUserP
                             auth: token,
                         })
 
-                        reactSwal.fire({
-                            title: 'Sucesso!',
-                            icon: 'success',
-                            text: 'Dados deletados. Você será deslogado.',
-                            confirmButtonColor: sweetAlertOptions.confirmButtonColor,
-                        })
+                        showSwalSuccess('Dados deletados. Você será deslogado.')
                         signout()
                     } catch (e) {
                         showFetchError(e)

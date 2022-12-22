@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { reactSwal, sweetAlertOptions } from './sweetAlert'
 
 import FetchError from './FetchError'
+import { showSwalError } from './reactSwal'
 
 const apiErrorMessages: Record<string, string> = {
     'Email already in use': 'E-mail informado já está sendo usado. Por favor, informe outro.',
@@ -17,12 +17,7 @@ function showFetchError(error: any): void {
     } else {
         message = 'Ocorreu um erro desconhecido'
     }
-    reactSwal.fire({
-        title: 'Oops!',
-        icon: 'error',
-        text: message,
-        confirmButtonColor: sweetAlertOptions.confirmButtonColor,
-    })
+    showSwalError(message)
 }
 
 export default showFetchError
